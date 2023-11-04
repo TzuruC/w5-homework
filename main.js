@@ -70,78 +70,6 @@ function addCardHTML(card){
     </li>`;    
 }
 
-
-
-let ticketCardArea  = document.querySelector(".ticketCard-area");
-let searchResult = document.querySelector("#searchResult-text");
-
-function allCards(){
-    newData.forEach((card) => {
-    ticketCardArea.innerHTML += `
-    <li class="ticketCard">
-    <div class="ticketCard-img">
-        <a href="#">
-            <img src="${card.imgUrl}"
-                alt="">
-        </a>
-        <div class="ticketCard-region">${card.area}</div>
-        <div class="ticketCard-rank">${card.rate}</div>
-    </div>
-    <div class="ticketCard-content">
-        <div>
-            <h3>
-                <a href="#" class="ticketCard-name">${card.name}</a>
-            </h3>
-            <p class="ticketCard-description">
-            ${card.description}
-            </p>
-        </div>
-        <div class="ticketCard-info">
-            <p class="ticketCard-num">
-                <span><i class="fas fa-exclamation-circle"></i></span>
-                剩下最後 <span id="ticketCard-num"> ${card.group} </span> 組
-            </p>
-            <p class="ticketCard-price">
-                TWD <span id="ticketCard-price">$${card.price}</span>
-            </p>
-        </div>
-    </div>
-    </li>    
-    `;
-    })
-}
-allCards();
-
-const regionSearch = document.querySelector(".regionSearch");
-
-regionSearch.addEventListener("change", function(e){
-    let cardTarget = e.target.value;
-    let print = 0;
-    newData.forEach((card) => {
-    if(card.area === cardTarget){        
-        initCard();
-        addCardHTML(card);
-        print +=1;
-    }else if(cardTarget == ''){
-        addCardHTML(card);
-        print +=1;
-    }
-    })    
-    searchResult.textContent = `本次搜尋共 ${print} 筆資料`;
-})
-
-
-const addTicketBtn = document.querySelector(".addTicket-btn");
-
-addTicketBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    getCardValue();  
-    initCard(); 
-    allCards();    
-})
-
-
-
 function getCardValue(){
     let ticketName  = document.querySelector("#ticketName");
     let ticketImgUrl  = document.querySelector("#ticketImgUrl");
@@ -162,3 +90,59 @@ function getCardValue(){
     };
     newData.push(obj);  
 }
+
+let ticketCardArea  = document.querySelector(".ticketCard-area");
+let searchResult = document.querySelector("#searchResult-text");
+
+function allCards(){
+    newData.forEach((card) => {
+        addCardHTML(card);
+    })
+}
+allCards();
+
+const regionSearch = document.querySelector(".regionSearch");
+
+
+
+
+
+const addTicketBtn = document.querySelector(".addTicket-btn");
+
+addTicketBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    getCardValue();  
+    initCard(); 
+    allCards();    
+})
+
+
+
+
+regionSearch.addEventListener("change", function(e){
+    let cardTarget = e.target.value;
+    let print = 0;
+    let filtNewData = newData.filter(card => card.area === cardTarget || cardTarget === '');
+
+    initCard();
+    newData.forEach((card) => {
+    if(card.area === cardTarget){
+        addCardHTML(card);
+    }else if(cardTarget == ''){
+        addCardHTML(card);
+    }
+    })    
+    searchResult.textContent = `本次搜尋共 ${filtNewData.length} 筆資料`;
+})
+
+// regionSearch.addEventListener("change", function (e) {
+//     let cardTarget = e.target.value;
+//     let filteredData = newData.filter(card => card.area === cardTarget || cardTarget === '');
+
+//     initCard();
+//     filteredData.forEach(card => {
+//         addCardHTML(card);
+//     });
+
+//     searchResult.textContent = `本次搜尋共 ${filteredData.length} 筆資料`;
+// });
