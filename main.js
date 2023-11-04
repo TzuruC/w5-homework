@@ -135,14 +135,3 @@ regionSearch.addEventListener("change", function(e){
     searchResult.textContent = `本次搜尋共 ${filtNewData.length} 筆資料`;
 })
 
-// regionSearch.addEventListener("change", function (e) {
-//     let cardTarget = e.target.value;
-//     let filteredData = newData.filter(card => card.area === cardTarget || cardTarget === '');
-
-//     initCard();
-//     filteredData.forEach(card => {
-//         addCardHTML(card);
-//     });
-
-//     searchResult.textContent = `本次搜尋共 ${filteredData.length} 筆資料`;
-// });
