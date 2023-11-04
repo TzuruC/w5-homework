@@ -87,6 +87,14 @@ function getCardValue(){
         "rate": ticketRate.value
     };
     newData.push(obj);  
+    ticketName.value = "";
+    ticketImgUrl.value = "";
+    ticketRegion.value = "";
+    ticketPrice.value = "";
+    ticketNum.value = "";
+    ticketRate.value = "";
+    ticketDescription.value = "";
+    alert("新增成功！");
 }
 
 function allCards(){
