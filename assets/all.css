@@ -258,6 +258,7 @@ color: #818A91;
 .regionSearch {
 width: 27.5%;
 min-height: 38px;
+padding: 6px 0;
 text-indent: 0.5rem;
 color: #818A91;
 font-size: 1rem;

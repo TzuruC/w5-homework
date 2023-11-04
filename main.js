@@ -30,3 +30,135 @@ let data = [
     "rate": 7
 }
 ];
+
+let newData = [...data];
+
+function initCard(){
+    ticketCardArea.innerHTML='';
+}
+
+function addCardHTML(card){
+    ticketCardArea.innerHTML += `
+    <li class="ticketCard">
+    <div class="ticketCard-img">
+        <a href="#">
+            <img src="${card.imgUrl}"
+                alt="">
+        </a>
+        <div class="ticketCard-region">${card.area}</div>
+        <div class="ticketCard-rank">${card.rate}</div>
+    </div>
+    <div class="ticketCard-content">
+        <div>
+            <h3>
+                <a href="#" class="ticketCard-name">${card.name}</a>
+            </h3>
+            <p class="ticketCard-description">
+            ${card.description}
+            </p>
+        </div>
+        <div class="ticketCard-info">
+            <p class="ticketCard-num">
+                <span><i class="fas fa-exclamation-circle"></i></span>
+                剩下最後 <span id="ticketCard-num"> ${card.group} </span> 組
+            </p>
+            <p class="ticketCard-price">
+                TWD <span id="ticketCard-price">$${card.price}</span>
+            </p>
+        </div>
+    </div>
+    </li>`;    
+}
+
+
+
+let ticketCardArea  = document.querySelector(".ticketCard-area");
+let searchResult = document.querySelector("#searchResult-text");
+
+function allCards(){
+    newData.forEach((card) => {
+    ticketCardArea.innerHTML += `
+    <li class="ticketCard">
+    <div class="ticketCard-img">
+        <a href="#">
+            <img src="${card.imgUrl}"
+                alt="">
+        </a>
+        <div class="ticketCard-region">${card.area}</div>
+        <div class="ticketCard-rank">${card.rate}</div>
+    </div>
+    <div class="ticketCard-content">
+        <div>
+            <h3>
+                <a href="#" class="ticketCard-name">${card.name}</a>
+            </h3>
+            <p class="ticketCard-description">
+            ${card.description}
+            </p>
+        </div>
+        <div class="ticketCard-info">
+            <p class="ticketCard-num">
+                <span><i class="fas fa-exclamation-circle"></i></span>
+                剩下最後 <span id="ticketCard-num"> ${card.group} </span> 組
+            </p>
+            <p class="ticketCard-price">
+                TWD <span id="ticketCard-price">$${card.price}</span>
+            </p>
+        </div>
+    </div>
+    </li>    
+    `;
+    })
+}
+allCards();
+
+const regionSearch = document.querySelector(".regionSearch");
+
+regionSearch.addEventListener("change", function(e){
+    let cardTarget = e.target.value;
+    let print = 0;
+    newData.forEach((card) => {
+    if(card.area === cardTarget){        
+        initCard();
+        addCardHTML(card);
+        print +=1;
+    }else if(cardTarget == ''){
+        addCardHTML(card);
+        print +=1;
+    }
+    })    
+    searchResult.textContent = `本次搜尋共 ${print} 筆資料`;
+})
+
+
+const addTicketBtn = document.querySelector(".addTicket-btn");
+
+addTicketBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    getCardValue();  
+    initCard(); 
+    allCards();    
+})
+
+
+
+function getCardValue(){
+    let ticketName  = document.querySelector("#ticketName");
+    let ticketImgUrl  = document.querySelector("#ticketImgUrl");
+    let ticketRegion  = document.querySelector("#ticketRegion");
+    let ticketPrice  = document.querySelector("#ticketPrice");
+    let ticketNum  = document.querySelector("#ticketNum");
+    let ticketRate  = document.querySelector("#ticketRate");
+    let ticketDescription  = document.querySelector("#ticketDescription");
+    let obj = {
+        "id": 0,
+        "name": ticketName.value,
+        "imgUrl":ticketImgUrl.value,
+        "area": ticketRegion.value,
+        "description": ticketDescription.value,
+        "group": ticketNum.value,
+        "price": ticketPrice.value,
+        "rate": ticketRate.value
+    };
+    newData.push(obj);  
+}
