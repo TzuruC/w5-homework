@@ -31,8 +31,6 @@ let data = [
 }
 ];
 
-let newData = [...data];
-
 function initCard(){
     ticketCardArea.innerHTML='';
 }
@@ -91,23 +89,20 @@ function getCardValue(){
     newData.push(obj);  
 }
 
-let ticketCardArea  = document.querySelector(".ticketCard-area");
-let searchResult = document.querySelector("#searchResult-text");
-
 function allCards(){
     newData.forEach((card) => {
         addCardHTML(card);
-    })
-}
-allCards();
+})}
 
+
+let newData = [...data];
+let ticketCardArea  = document.querySelector(".ticketCard-area");
+let searchResult = document.querySelector("#searchResult-text");
 const regionSearch = document.querySelector(".regionSearch");
-
-
-
-
-
 const addTicketBtn = document.querySelector(".addTicket-btn");
+
+
+allCards();
 
 addTicketBtn.addEventListener("click", function(e){
     e.preventDefault();
@@ -116,14 +111,10 @@ addTicketBtn.addEventListener("click", function(e){
     allCards();    
 })
 
-
-
-
 regionSearch.addEventListener("change", function(e){
     let cardTarget = e.target.value;
     let print = 0;
     let filtNewData = newData.filter(card => card.area === cardTarget || cardTarget === '');
-
     initCard();
     newData.forEach((card) => {
     if(card.area === cardTarget){
