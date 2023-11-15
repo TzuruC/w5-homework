@@ -1,37 +1,60 @@
 import axios, { isCancel, AxiosError } from 'axios';
 
-let data = [
-    {
-        id: 0,
-        name: '肥宅心碎賞櫻3日',
-        imgUrl: 'https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80',
-        area: '高雄',
-        description: '賞櫻花最佳去處。肥宅不得不去的超讚景點！',
-        group: 87,
-        price: 1400,
-        rate: 10,
-    },
-    {
-        id: 1,
-        name: '貓空纜車雙程票',
-        imgUrl: 'https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80',
-        area: '台北',
-        description: '乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感',
-        group: 99,
-        price: 240,
-        rate: 2,
-    },
-    {
-        id: 2,
-        name: '台中谷關溫泉會1日',
-        imgUrl: 'https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80',
-        area: '台中',
-        description: '全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。',
-        group: 20,
-        price: 1765,
-        rate: 7,
-    },
-];
+// let data = [
+//     {
+//         id: 0,
+//         name: '肥宅心碎賞櫻3日',
+//         imgUrl: 'https://images.unsplash.com/photo-1522383225653-ed111181a951?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1655&q=80',
+//         area: '高雄',
+//         description: '賞櫻花最佳去處。肥宅不得不去的超讚景點！',
+//         group: 87,
+//         price: 1400,
+//         rate: 10,
+//     },
+//     {
+//         id: 1,
+//         name: '貓空纜車雙程票',
+//         imgUrl: 'https://images.unsplash.com/photo-1501393152198-34b240415948?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80',
+//         area: '台北',
+//         description: '乘坐以透明強化玻璃為地板的「貓纜之眼」水晶車廂，享受騰雲駕霧遨遊天際之感',
+//         group: 99,
+//         price: 240,
+//         rate: 2,
+//     },
+//     {
+//         id: 2,
+//         name: '台中谷關溫泉會1日',
+//         imgUrl: 'https://images.unsplash.com/photo-1535530992830-e25d07cfa780?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80',
+//         area: '台中',
+//         description: '全館客房均提供谷關無色無味之優質碳酸原湯，並取用八仙山之山冷泉供蒞臨貴賓沐浴及飲水使用。',
+//         group: 20,
+//         price: 1765,
+//         rate: 7,
+//     },
+// ];
+
+let data;
+// axios
+//     .get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
+//     .then(function (res) {
+//         data = res.data.data;
+//     })
+//     .catch(function (error) {
+//         console.log(error);
+//     });
+
+function fetchData() {
+    axios
+        .get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
+        .then(function (res) {
+            data = res.data.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+fetchData();
+console.log(data);
 
 function initCard() {
     ticketCardArea.innerHTML = '';
@@ -71,7 +94,7 @@ function addCardHTML(card) {
 }
 
 function allCards() {
-    newData.forEach((card) => {
+    data.forEach((card) => {
         addCardHTML(card);
     });
 }
@@ -87,13 +110,13 @@ function getCardValue() {
         price: ticketPrice.value,
         rate: ticketRate.value,
     };
-    newData.push(obj);
+    data.push(obj);
     addTicketForm.reset();
     alert('新增成功！');
 }
 
 const addTicketForm = document.querySelector('.addTicket-form');
-const ticketName = document.querySelector('#ticketName');
+// const ticketName = document.querySelector('#ticketName');
 const ticketImgUrl = document.querySelector('#ticketImgUrl');
 const ticketRegion = document.querySelector('#ticketRegion');
 const ticketPrice = document.querySelector('#ticketPrice');
@@ -105,38 +128,27 @@ const searchResult = document.querySelector('#searchResult-text');
 const regionSearch = document.querySelector('.regionSearch');
 const addTicketBtn = document.querySelector('.addTicket-btn');
 
-const newData = [...data];
+// allCards();
 
-allCards();
+// addTicketBtn.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     // fetchData();
+//     getCardValue();
+//     initCard();
+//     allCards();
+// });
 
-addTicketBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    getCardValue();
-    initCard();
-    allCards();
-});
-
-regionSearch.addEventListener('change', function (e) {
-    let cardTarget = e.target.value;
-    let filtNewData = newData.filter((card) => card.area === cardTarget || cardTarget === '');
-    initCard();
-    newData.forEach((card) => {
-        if (card.area === cardTarget) {
-            addCardHTML(card);
-        } else if (cardTarget == '') {
-            addCardHTML(card);
-        }
-    });
-    searchResult.textContent = `本次搜尋共 ${filtNewData.length} 筆資料`;
-});
-
-axios
-    .get('https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json')
-    .then(function (res) {
-        // handle success
-        console.log(res.data);
-    })
-    .catch(function (error) {
-        // handle error
-        console.log(error);
-    });
+// regionSearch.addEventListener('change', function (e) {
+//     let cardTarget = e.target.value;
+//     let filtNewData = newData.filter((card) => card.area === cardTarget || cardTarget === '');
+//     // fetchData();
+//     initCard();
+//     data.forEach((card) => {
+//         if (card.area === cardTarget) {
+//             addCardHTML(card);
+//         } else if (cardTarget == '') {
+//             addCardHTML(card);
+//         }
+//     });
+//     searchResult.textContent = `本次搜尋共 ${filtNewData.length} 筆資料`;
+// });
